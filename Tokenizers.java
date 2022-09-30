@@ -2,7 +2,7 @@
 import java.util.*;
 
 public class Tokenizers {
-    public static void main(){
+    public static void main(String []args){
         Scanner read = new Scanner(System.in);
         System.out.print("Enter a character through which the string can be separated : ");
         String symbol = read.nextLine();
