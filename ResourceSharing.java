@@ -1,4 +1,4 @@
-package DeadLock;
+import java.util.*;
 
 class BankerAlgorithm {
     int[][] maximum;
@@ -65,12 +65,48 @@ class BankerAlgorithm {
 
 public class ResourceSharing {
     public static void main(String[] args) {
-        int[][] maximum = {{7, 5, 3}, {3, 2, 2}, {9, 0, 2}, {2, 2, 2}, {4, 3, 3}};
-        int[][] allocation = {{0, 1, 0}, {2, 0, 0}, {3, 0, 2}, {2, 1, 1}, {0, 0, 2}};
-        int[] available = {3, 3, 2};
-
+	//No.of resources of Type A=10,B=5,C=7
+	Scanner sc=new Scanner(System.in);
+	int r,c;
+	System.out.println("Enter the no.of rows and columns: ");
+	r=sc.nextInt();
+	c=sc.nextInt();
+	int[][] maximum = new int[r][c];
+        int[][] allocation = new int[r][c];
+	System.out.println("Enter the maximum resources needed for each process: ");
+	for(int i=0;i<r;i++)
+		for(int j=0;j<c;j++)
+			maximum[i][j]=sc.nextInt();
+	System.out.println("Enter the allocated resources for each process: ");
+        for(int i=0;i<r;i++)
+		for(int j=0;j<c;j++)
+			allocation[i][j]=sc.nextInt();
+	int p=0,q=0,s=0;	
+	for(int i=0;i<r;i++){
+		p+=allocation[i][0];
+		q+=allocation[i][1];
+		s+=allocation[i][2];
+	}
+        int[] available = {10-p, 5-q, 7-s};
+	System.out.println("Maximum Instances of each type required:\nProcess\tType-A\tType-B\tType-C");
+	for(int i=0;i<r;i++){
+		System.out.print("P"+i+"\t");
+		for(int j=0;j<c;j++){
+			System.out.print(maximum[i][j]+"\t");
+		}
+		System.out.println();
+	}
+	System.out.println("Allocated Instances of each type for each process:\nProcess\tType-A\tType-B\tType-C");
+	for(int i=0;i<r;i++){
+		System.out.print("P"+i+"\t");
+		for(int j=0;j<c;j++){
+			System.out.print(maximum[i][j]+"\t");
+		}
+		System.out.println();
+	}
+	System.out.println("Avilable: \nA\tB\tC");
+	System.out.println(available[0]+"\t"+available[1]+"\t"+available[2]);
         BankerAlgorithm banker = new BankerAlgorithm(maximum, allocation, available);
         banker.isSafeState();
     }
 }
-
